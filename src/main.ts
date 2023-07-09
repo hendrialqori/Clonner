@@ -18,7 +18,7 @@ export default class Clone extends AbsClone {
       return params;
     }
 
-    // return clone value
+    // return cloning value
     return mutableAction(dataCloning);
   }
 }

@@ -1,7 +1,7 @@
-import C from "../src/main";
+import CL from "../src/main";
 import { describe, expect, it } from "vitest";
 
-describe("Clone", () => {
+describe("Clonner testing functionality", () => {
 
   const profile = {
     name: "Hendri",
@@ -10,8 +10,9 @@ describe("Clone", () => {
     email: ["hendri@email.co.id", "alqori@yahoo.co.id"],
   };
 
+
   it("Should be work mutable array action", () => {
-    const profileState = C.clonner(profile, (draft) => {
+    const profileState = CL.clonner(profile, (draft) => {
       draft.email.pop();
 
       draft.email.unshift("een@email.co.id");
@@ -22,7 +23,7 @@ describe("Clone", () => {
   });
 
   it("Should be same value", () => {
-    const profileState = C.clonner(profile, (draft) => {
+    const profileState = CL.clonner(profile, (draft) => {
       draft.name = "Hendri Alqori";
       draft.department = "Information Technology";
       draft.role = "Frontend Engineer";
