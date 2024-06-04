@@ -13,7 +13,7 @@ declare function clone<T>(initialValue:T, cb: (draft: T) => void): T
 // ES6
 import { clone } from 'clonner'
 // Common JS
-const clone = require('clonnner')
+const clone = require('clonner')
 
 const profile = {
       name: 'Ishowspeed',
