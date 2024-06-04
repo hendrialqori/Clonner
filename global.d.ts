@@ -1,5 +1,1 @@
-type Cloner = <T extends {}>(initialValue: T,draft: (callbackValue: T) => void) => T;
-
-export interface IClone {
-  clonner : Cloner
-} 
+declare function clone<T>(initialValue: T, cb: (draft: T) => void): T

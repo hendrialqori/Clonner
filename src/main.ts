@@ -1,24 +1,22 @@
-import AbsClone from "./abstract";
+export function isObject(obj: Record<any, any> | any) {
+  return (typeof obj === 'object' && !Array.isArray(obj))
+}
 
-export default class Clone extends AbsClone {
-  constructor() {
-    super();
+export function clone<T extends {}>(initialValue: T, cb: (draft: T) => void): T {
+
+  if (!isObject(initialValue)) {
+    throw new Error('initial value should be an object')
   }
 
-  static clonner<T extends {}>(
-    initialValue: T,
-    draft: (callbackValue: T) => void
-  ): T {
-    // clone initial value
-    const dataCloning = structuredClone(initialValue);
+  // clone initial value
+  const dataCloning = structuredClone(initialValue)
 
-    // function to handle mutable action and return clone value
-    function mutableAction(params: T) {
-      draft(params);
-      return params;
-    }
-
-    // return cloning value
-    return mutableAction(dataCloning);
+   // function to handle mutable action and return clone value
+  function mutableAction(params: T) {
+    cb(params)
+    return params
   }
+
+  // return cloning value
+  return mutableAction(dataCloning)
 }

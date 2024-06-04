@@ -1,5 +1,5 @@
-import CL from "../src/main";
-import { describe, expect, it } from "vitest";
+import { clone, isObject } from '../src/main'
+import { describe, expect, it, test } from "vitest";
 
 describe("Clonner testing functionality", () => {
 
@@ -7,23 +7,27 @@ describe("Clonner testing functionality", () => {
     name: "Hendri",
     department: "IT",
     role: "Frontend Developer",
+    adrress: {
+      nationality: '',
+      street: ''
+    },
     email: ["hendri@email.co.id", "alqori@yahoo.co.id"],
   };
 
 
   it("Should be work mutable array action", () => {
-    const profileState = CL.clonner(profile, (draft) => {
+    const profileState = clone(profile, (draft) => {
       draft.email.pop();
 
       draft.email.unshift("een@email.co.id");
     });
 
-    expect(profileState.email).toEqual(['een@email.co.id','hendri@email.co.id'])
+    expect(profileState.email).toEqual(['een@email.co.id', 'hendri@email.co.id'])
 
   });
 
   it("Should be same value", () => {
-    const profileState = CL.clonner(profile, (draft) => {
+    const profileState = clone(profile, (draft) => {
       draft.name = "Hendri Alqori";
       draft.department = "Information Technology";
       draft.role = "Frontend Engineer";
@@ -34,6 +38,36 @@ describe("Clonner testing functionality", () => {
       department: "Information Technology",
       role: "Frontend Engineer",
       email: ["hendri@email.co.id", "alqori@yahoo.co.id"],
+      adrress: {
+        nationality: '',
+        street: ''
+      },
     });
   });
+
+
+  it('Should be work when update nested object', () => {
+
+    const profileState = clone(profile, (draft) => {
+      draft.adrress.nationality = 'Indonesia'
+      draft.adrress.street = 'Jalan Raya Mandor'
+    })
+
+    expect(profileState.adrress).toEqual({
+      nationality: 'Indonesia',
+      street: 'Jalan Raya Mandor'
+    })
+  })
+
+
+  it("Throw an error when initial value isn't object", () => {
+
+    const testObj = (obj: any) => {
+      if(!isObject(obj))
+        throw new Error('params should be an object')
+    }
+    expect(() => testObj('')).toThrowError(/object/)
+
+  })
+
 });
