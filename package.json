@@ -1,7 +1,7 @@
 {
   "name": "clonner",
   "description": "A utility function that allows you to change nested object values without spreading them out.",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "dist/main.js",
   "module": "dist/main.cjs",
   "types": "dist/main.d.ts",
@@ -26,5 +26,5 @@
     "typescript": "^5.1.6",
     "vitest": "^0.33.0"
   },
-  "keywords": ["object"]
+  "keywords": ["javascript", "object"]
 }
