@@ -1,19 +1,28 @@
 {
   "name": "clonner",
-  "version": "1.0.0",
-  "main": "index.js",
+  "description": "A utility function that allows you to change nested object values without spreading them out.",
+  "version": "0.0.1",
+  "main": "dist/main.js",
+  "module": "dist/main.cjs",
+  "types": "dist/main.d.ts",
   "license": "MIT",
   "type": "module",
   "author": {
     "name": "Hendri Alqori",
     "instagram": "hendrialqori",
-    "country":"Indonesia"
+    "country": "Indonesia"
+  },
+  "homepage": "https://github.com/hendrialqori/Clonner",
+  "repository": {
+    "url": "https://github.com/hendrialqori/Clonner"
   },
   "scripts": {
     "test": "vitest",
-    "build": "tsc"
+    "build": "tsup src/main.ts --format cjs,esm --dts",
+    "lint": "tsc"
   },
   "devDependencies": {
+    "tsup": "^8.1.0",
     "typescript": "^5.1.6",
     "vitest": "^0.33.0"
   }

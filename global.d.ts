@@ -1,1 +1,0 @@
-declare function clone<T>(initialValue: T, cb: (draft: T) => void): T

@@ -1,6 +1,4 @@
-export function isObject(obj: Record<any, any> | any) {
-  return (typeof obj === 'object' && !Array.isArray(obj))
-}
+import { isObject } from "./utils"
 
 export function clone<T extends {}>(initialValue: T, cb: (draft: T) => void): T {
 

@@ -1,4 +1,4 @@
-import { clone, isObject } from '../src/main'
+import { clone } from '../src/main'
 import { describe, expect, it, test } from "vitest";
 
 describe("Clonner testing functionality", () => {
@@ -12,7 +12,32 @@ describe("Clonner testing functionality", () => {
       street: ''
     },
     email: ["hendri@email.co.id", "alqori@yahoo.co.id"],
+    func: null as null | (() => void)
   };
+
+  const deepObj = {
+    obj1: {
+      obj2: {
+        obj3: {
+          obj4: {
+            obj5: {
+              obj6: {
+                obj7: {
+                  obj8: {
+                    obj9: {
+                      obj10: {
+                        message: ''
+                      }
+                    }
+                  }
+                } 
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 
 
   it("Should be work mutable array action", () => {
@@ -42,32 +67,26 @@ describe("Clonner testing functionality", () => {
         nationality: '',
         street: ''
       },
+      func: null
     });
   });
 
+  it('Should work with object property', () => {
+    const profileState = clone(profile, function(draft) {
+      draft.func = function() {
+        return this.name
+      }
+    })
+
+    expect(profileState.func?.()).toBe('Hendri')
+    
+  })
+
 
   it('Should be work when update nested object', () => {
-
-    const profileState = clone(profile, (draft) => {
-      draft.adrress.nationality = 'Indonesia'
-      draft.adrress.street = 'Jalan Raya Mandor'
+    const deep = clone(deepObj, (draft) => {
+      draft.obj1.obj2.obj3.obj4.obj5.obj6.obj7.obj8.obj9.obj10.message = 'Hello World, Its works!'
     })
-
-    expect(profileState.adrress).toEqual({
-      nationality: 'Indonesia',
-      street: 'Jalan Raya Mandor'
-    })
+    expect(deep.obj1.obj2.obj3.obj4.obj5.obj6.obj7.obj8.obj9.obj10.message).toBe('Hello World, Its works!')
   })
-
-
-  it("Throw an error when initial value isn't object", () => {
-
-    const testObj = (obj: any) => {
-      if(!isObject(obj))
-        throw new Error('params should be an object')
-    }
-    expect(() => testObj('')).toThrowError(/object/)
-
-  })
-
 });
